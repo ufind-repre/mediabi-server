@@ -1,0 +1,23 @@
+services:
+  server:
+    build:
+      context: .
+    environment:
+      NODE_ENV: production
+    ports:
+      - 3000:3000
+  db:
+    image: mongo:8.0
+    volumes:
+      - mediabi-data:/data/db
+    ports:
+      - '27017:27017'
+  cache:
+    image: redis:7.2-alpine
+    ports:
+      - '6379:6379'
+    volumes:
+      - mediabi-data:/data
+
+volumes:
+  mediabi-data:
