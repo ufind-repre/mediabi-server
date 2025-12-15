@@ -25,4 +25,9 @@ export class ChatService {
   public addMessage(id: string): Promise<void> {
     return this.chatRepository.addMessage(id);
   }
+
+  public async delete(id: string): Promise<void> {
+    await this.findById(id);
+    await this.chatRepository.delete(id);
+  }
 }

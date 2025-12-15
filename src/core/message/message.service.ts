@@ -16,7 +16,6 @@ export class MessageService {
 
   public async create(createMessageDto: CreateMessageDto): Promise<Message> {
     const chat = await this.chatService.findById(String(createMessageDto.chat));
-    createMessageDto.chat = chat._id;
 
     await this.messageRepository.create(createMessageDto);
 

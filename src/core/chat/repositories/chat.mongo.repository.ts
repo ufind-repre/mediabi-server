@@ -29,4 +29,8 @@ export class MongoChatRepository implements IChatRepository {
   public async update(id: string, updateChatDto: UpdateChatDto): Promise<void> {
     await this.chatModel.findByIdAndUpdate(id, updateChatDto).exec();
   }
+
+  public async delete(id: string): Promise<void> {
+    await this.chatModel.findByIdAndDelete(id).exec();
+  }
 }

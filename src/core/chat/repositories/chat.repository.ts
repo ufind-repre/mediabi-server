@@ -10,4 +10,5 @@ export abstract class IChatRepository {
     id: string,
     updateChatDto: UpdateChatDto,
   ): Promise<void>;
+  public abstract delete(id: string): Promise<void>;
 }

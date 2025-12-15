@@ -6,4 +6,7 @@ export class FindMessageDto {
 
   @IsOptional()
   public limit?: number;
+
+  @IsOptional()
+  public orderBy?: string;
 }

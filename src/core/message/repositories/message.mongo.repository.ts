@@ -23,6 +23,12 @@ export class MongoMessageRepository implements IMessageRepository {
       { $sort: { createdAt: -1 } },
     ];
 
+    if (findMessageDto.orderBy) {
+      const [field, direction] = findMessageDto.orderBy.split(':');
+      if (field && direction)
+        pipeline.push({ $sort: { [field]: direction == 'desc' ? -1 : 1 } });
+    }
+
     if (findMessageDto.limit && findMessageDto.limit > 0) {
       if (findMessageDto.page && findMessageDto.page >= 0)
         pipeline.push({ $skip: findMessageDto.page * findMessageDto.limit });
@@ -53,7 +59,7 @@ export class MongoMessageRepository implements IMessageRepository {
       { $unwind: '$chat' },
       {
         $set: {
-          content: { $substrBytes: ['$content', 0, 50] },
+          content: { $substrCP: ['$content', 0, 50] },
         },
       },
       {
