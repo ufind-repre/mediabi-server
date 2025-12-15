@@ -40,7 +40,6 @@ export class MongoMessageRepository implements IMessageRepository {
 
   public findLasts(findMessageDto: FindMessageDto): Promise<Message[]> {
     const pipeline: PipelineStage[] = [
-      { $sort: { createdAt: -1 } },
       {
         $group: {
           _id: '$chat',
@@ -68,6 +67,7 @@ export class MongoMessageRepository implements IMessageRepository {
           isAi: 0,
         },
       },
+      { $sort: { 'chat.updatedAt': -1 } },
     ];
 
     if (findMessageDto.limit && findMessageDto.limit > 0) {
